@@ -21,7 +21,8 @@ export class BuscaServicosComponent {
   constructor(private apiService: ApiService) {}
 
   pesquisar(): void {
-  
+    (document.activeElement as HTMLElement)?.blur();
+    
     this.apiService.buscarServicos(this.termoBusca, this.bairroBusca).subscribe({
       next: (dados: any[]) => { 
         this.prestadores = dados;
