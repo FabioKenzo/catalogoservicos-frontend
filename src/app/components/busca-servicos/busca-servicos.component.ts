@@ -21,14 +21,14 @@ export class BuscaServicosComponent {
   constructor(private apiService: ApiService) {}
 
   pesquisar(): void {
-    // Força o teclado do celular (iOS/Android) a fechar na hora do clique
+    // Fecha o teclado virtual do celular imediatamente
     (document.activeElement as HTMLElement)?.blur();
 
-    // Remove espaços em branco extras que o teclado do iPhone joga nas pontas
+    // Limpa os espaços invisíveis das pontas que o iOS gera
     const termoLimpo = this.termoBusca ? this.termoBusca.trim() : '';
     const bairroLimpo = this.bairroBusca ? this.bairroBusca.trim() : '';
 
-    // Envia os dados perfeitamente limpos para a API Java
+    // Dispara a requisição limpa para o Back-end
     this.apiService.buscarServicos(termoLimpo, bairroLimpo).subscribe({
       next: (dados: any[]) => { 
         this.prestadores = dados;
@@ -37,7 +37,6 @@ export class BuscaServicosComponent {
       },
       error: (err: any) => {
         console.error('Erro ao conectar com o servidor backend:', err);
-        alert('Erro ao conectar com o servidor backend.');
       }
     });
   }
