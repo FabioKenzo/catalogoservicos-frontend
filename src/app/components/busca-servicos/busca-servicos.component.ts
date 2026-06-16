@@ -21,26 +21,26 @@ export class BuscaServicosComponent {
   constructor(private apiService: ApiService) {}
 
 pesquisar(): void {
-  // Força o teclado a fechar
+  // Força o teclado do celular a fechar
   (document.activeElement as HTMLElement)?.blur();
 
-  // ALERTA 1: Mostra o que o Angular capturou dos inputs antes de enviar
-  alert(`[DEBUG 1] Enviando -> Termo: "${this.termoBusca}" | Bairro: "${this.bairroBusca}"`);
+  // O .trim() remove os espaços extras do iPhone automaticamente!
+  const termoLimpo = this.termoBusca ? this.termoBusca.trim() : '';
+  const bairroLimpo = this.bairroBusca ? this.bairroBusca.trim() : '';
 
-  this.apiService.buscarServicos(this.termoBusca, this.bairroBusca).subscribe({
+  // Pode deixar esse alert se quiser ver limpando, depois é só apagar
+  alert(`[DEBUG] Corrigido -> Termo: "${termoLimpo}" | Bairro: "${bairroLimpo}"`);
+
+  // Passa as variáveis limpas para a API
+  this.apiService.buscarServicos(termoLimpo, bairroLimpo).subscribe({
     next: (dados: any[]) => { 
       this.prestadores = dados;
       this.pesquisaFeita = true;
       console.log('Resultados encontrados no Java:', dados);
-      
-      // ALERTA 2: Mostra quantos registros voltaram do banco
-      alert(`[DEBUG 2] Sucesso! Registros retornados do Java: ${dados.length}`);
     },
     error: (err: any) => {
       console.error('Erro ao conectar com o servidor backend:', err);
-      
-      // ALERTA 3: Destrincha o erro real de rede do iPhone na tela
-      alert(`[DEBUG ERRO] Status: ${err.status} | Msg: ${err.message} | Nome: ${err.name}`);
+      alert('Erro ao conectar com o servidor backend.');
     }
   });
 }
