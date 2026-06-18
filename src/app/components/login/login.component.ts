@@ -27,12 +27,12 @@ export class LoginComponent {
       return;
     }
 
-    console.log('Tentando realizar login no Java:', this.dadosLogin);
+    console.log('Tentando realizar login...');
 
     // Chamando o método no service
     this.apiService.login(this.dadosLogin).subscribe({
       next: (usuarioLogado) => {
-        console.log('Login efetuado com sucesso!', usuarioLogado);
+        console.log('Login efetuado com sucesso!');
         alert(`Bem-vindo de volta, ${usuarioLogado.nome}!`);
         
         //guarda os dados do usuário na sessão para saber quem está logado

@@ -29,12 +29,12 @@ export class CadastroComponent {
       return;
     }
 
-    console.log('Enviando dados reais para o Java:', this.usuario);
+    console.log('Tentando cadastrar usuário...');
 
     // Chamada real para o backend Spring 
     this.apiService.cadastrarUsuario(this.usuario).subscribe({
       next: (resposta) => {
-        console.log('Usuário cadastrado com sucesso no banco!', resposta);
+        console.log('Usuário cadastrado com sucesso no banco!');
         alert(`Conta criada com sucesso como ${this.usuario.tipoPerfil}!`);
         
         // Redirecionamento inteligente baseado no perfil mapeado
