@@ -12,7 +12,7 @@ O projeto foi desenvolvido como parte das atividades de **Extensão Universitár
 
 **Frontend (Produção):**
 
-https://celebrated-rolypoly-d3bfeb.netlify.app/
+https://catalogoservicos-frontend.netlify.app/
 
 **Backend API:**
 
