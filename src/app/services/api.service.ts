@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface UsuarioDTO {
-  id: number; 
-  nome: string; 
-  email: string; 
+  id: number;
+  nome: string;
+  email: string;
   tipoPerfil: string;
 }
 
 export interface ServicoDTO {
-nomeNegocio: any;
-categorias: any;
-whatsapp: string;
-  id: number; 
-  categoria: string; 
-  bairro: string; 
-  telefone: string; 
+  id?: number;
+  nome: string;       //nome do negocio
+  categoria: string;  //nome da ategoria
+  bairro: string;
+  telefone: string;   //whatsApp mapeado como telefone
   descricao: string;
-  usuarios?: UsuarioDTO; 
+  usuario?: UsuarioDTO; //objeto aninhado com o nome do prestador
 }
 
 @Injectable({
@@ -26,34 +24,59 @@ whatsapp: string;
 })
 export class ApiService {
 
-  // URL base para facilitar as chamadas das APIs
-  private baseUrl = 'https://catalogoservicos.onrender.com/api';
+  private baseUrl = 'https://catalogoservicos.onrender.com';
 
   constructor(private http: HttpClient) { }
 
-  // ENDPOINTS DE AUTENTICAÇÃO
-
-  cadastrarUsuario(usuario: any): Observable<UsuarioDTO> {
-    return this.http.post<UsuarioDTO>(`${this.baseUrl}/auth/registrar`, usuario);
+  //efetuar login
+  login(dadosLogin: { email: string; senha: string; }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/auth/login`, dadosLogin);
   }
 
-  login(dadosLogin: any): Observable<UsuarioDTO> {
-    return this.http.post<UsuarioDTO>(`${this.baseUrl}/auth/login`, dadosLogin);
+  //cadastrar user
+  cadastrarUsuario(usuario: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl}/auth/registrar`, usuario);
+}
+
+  
+   //salvar comercio/servico
+  salvarComercioLivre(dadosServico: any): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<any>(`${this.baseUrl}/comercios/salvar`, dadosServico, { headers });
   }
 
-  // ENDPOINTS DE SERVIÇOS
-
-  // Método para persistir os dados do prestador no banco 
-  salvarServico(servico: any): Observable<ServicoDTO> {
-    return this.http.post<ServicoDTO>(`${this.baseUrl}/servicos/salvar`, servico);
+  
+   //busca principal
+  buscarServicos(servico: string, bairro: string): Observable<any[]> {
+    return this.buscarPorServicoEBairro(servico, bairro);
   }
 
-  // Método de busca dinâmico que bate no controller de serviços novo
-  buscarServicos(categoria: string, bairro: string): Observable<ServicoDTO[]> {
-    let params = new HttpParams();
-    if (categoria) params = params.set('categoria', categoria);
-    if (bairro) params = params.set('bairro', bairro);
+    //busca por servico e bairro 
+    //Aberta para todos
+  buscarPorServicoEBairro(servico: string, bairro: string): Observable<any[]> {
+    let params = new HttpParams()
+      .set('servico', servico)
+      .set('bairro', bairro);
 
-    return this.http.get<ServicoDTO[]>(`${this.baseUrl}/servicos/buscar`, { params });
+    const token = localStorage.getItem('token');
+    let headers = new HttpHeaders();
+
+    //se o user estiver logado anexa o token por garantia
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return this.http.get<any[]>(`${this.baseUrl}/comercios/buscar`, { params, headers });
+  }
+
+  //busca id especifico
+  buscarPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/comercios/${id}`);
   }
 }
