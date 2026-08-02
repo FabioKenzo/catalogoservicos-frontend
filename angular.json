@@ -89,12 +89,16 @@
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ], 
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets",
               "src/_redirects",
-            "src/staticwebapp.config.json"
+              {
+                "glob": "staticwebapp.config.json",
+                "input": "src/",
+                "output": "/"
+              }
             ]
           }
         }
