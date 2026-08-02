@@ -169,6 +169,14 @@ A cada novo **push** realizado para a branch principal, o pipeline executa autom
 
 ---
 
+# 💰 FinOps
+
+Após a conclusão dos testes e validação da infraestrutura, todos os recursos utilizados na Azure foram removidos através da exclusão do **Resource Group**.
+
+Essa prática evita cobranças desnecessárias e demonstra preocupação com boas práticas de gerenciamento de custos em ambientes Cloud.
+
+---
+
 ## 🎯 Competências Demonstradas
 
 Durante este processo foram aplicados conhecimentos em:
