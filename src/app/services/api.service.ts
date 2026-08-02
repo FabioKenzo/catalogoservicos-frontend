@@ -26,7 +26,7 @@ export class ApiService {
 
   //private baseUrl = 'https://catalogoservicos.onrender.com';
   //private baseUrl = 'http://20.172.158.126:8080';
-  baseUrl = '/api';
+  baseUrl = '';
 
   constructor(private http: HttpClient) { }
 
