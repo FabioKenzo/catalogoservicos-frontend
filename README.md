@@ -131,9 +131,9 @@ Durante a implantação da aplicação foram validadas todas as etapas necessár
 
 Aplicação Angular publicada e executando em ambiente de produção através do Azure Static Web Apps.
 
-```markdown
+
 ![Aplicação Angular na Azure](./front-1-aplicacao-producao.png)
-```
+
 
 *Aplicação publicada na Microsoft Azure.*
 
@@ -143,9 +143,9 @@ Aplicação Angular publicada e executando em ambiente de produção através do
 
 Criação do recurso **Azure Static Web Apps** no Portal da Microsoft Azure, demonstrando a infraestrutura responsável pela hospedagem da aplicação.
 
-```markdown
+
 ![Azure Static Web Apps](./front-2-azure-static-web-apps.png)
-```
+
 
 *Provisionamento da infraestrutura na Microsoft Azure.*
 
@@ -161,9 +161,9 @@ A cada novo **push** realizado para a branch principal, o pipeline executa autom
 - Build da aplicação Angular
 - Publicação na Azure Static Web Apps
 
-```markdown
+
 ![GitHub Actions](./front-3-github-actions-pipeline.png)
-```
+
 
 *Pipeline executando o Build e Deploy automaticamente.*
 
