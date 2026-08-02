@@ -24,8 +24,8 @@ export interface ServicoDTO {
 })
 export class ApiService {
 
-  //private baseUrl = 'https://catalogoservicos.onrender.com';
-  baseUrl = 'https://20.172.158.126:8080';
+  private baseUrl = 'https://catalogoservicos.onrender.com';
+  //private baseUrl = 'http://20.172.158.126:8080/api'; //link que foi utilizado para azure(teste ja excluido da plataforma)
 
   constructor(private http: HttpClient) { }
 
